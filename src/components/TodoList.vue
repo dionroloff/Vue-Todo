@@ -75,7 +75,7 @@ export default {
       todos: [
         {
           id: 1,
-          title: "Finish Vue Screencast",
+          title: "Finish writing first Vue app",
           completed: false,
           editing: false
         },
