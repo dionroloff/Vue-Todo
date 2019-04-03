@@ -13,10 +13,15 @@
         class="todo-item"
       >
       <div class="todo-item-left">
+          <input 
+            type="checkbox" 
+            v-model="todo.completed"
+          >
         <div 
             v-if="!todo.editing" 
-            @dblclick="editTodo(todo)"
             class="todo-item-label"
+            :class="{ completed: todo.completed }"
+            @dblclick="editTodo(todo)"
         >
             {{todo.title}}
         </div>
@@ -27,6 +32,7 @@
             v-model="todo.title"
             @blur="doneEdit(todo)"
             @keyup.enter="doneEdit(todo)"
+            @keyup.esc="cancelEdit(todo)"
             v-focus
         >
         </div>
@@ -46,6 +52,7 @@ export default {
     return {
       newTodo: '',
       idForTodo: 3,
+      beforeEditCache: '',
       todos: [
           {
               'id': 1,
@@ -83,9 +90,17 @@ export default {
           this.todos.splice(index, 1);
       },
       editTodo(todo) {
+          this.beforeEditCache = todo.title;
           todo.editing = true;
       },
       doneEdit(todo) {
+          if (todo.title.trim().length === 0) {
+              todo.title = this.beforeEditCache;
+          }
+          todo.editing = false;
+      },
+      cancelEdit(todo) {
+          todo.title = this.beforeEditCache;
           todo.editing = false;
       }
   },
@@ -144,5 +159,9 @@ export default {
         &:focus {
             outline: none;
         }
+    }
+    .completed{
+        text-decoration: line-through;
+        color: grey;
     }
 </style>
