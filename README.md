@@ -1,6 +1,6 @@
-# todo-vue
+# Vue Todo
 
-> My First Vue Project
+> A Basic To-Do App and My First Vue.js Project
 
 ## Build Setup
 
